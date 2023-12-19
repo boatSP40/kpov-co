@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 import plotly.graph_objects as go
+import plotly
 
 # https://www.webfx.com/tools/emoji-cheat-sheet/
 st.set_page_config(page_title="Automate Data Analysis for Shrincon Machine",
