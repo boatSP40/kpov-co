@@ -11,7 +11,7 @@ st.set_page_config(page_title="Automate Data Analysis for Coating Machine",
 )
 
 machine_options = ["Shrincon Old Version", "Shrincon New Version", "Optorun CT25",
-                   "Optorun CT26", "Inline", "Inline (Single Coat)", "Showa"]
+                   "Optorun CT26", "Inline", "Inline (Single Coat)", "Showa", "AFC: CT17"]
 selected_machine = st.selectbox("Select Machine", machine_options)
 
                                         # Shrincon
@@ -619,3 +619,435 @@ else:
     st.warning("Analysis for the selected machine is not implemented yet.")
 
                                         # Showa
+    
+
+                                        # AFC CT17    
+if selected_machine in ["AFC: CT17"]:
+    uploaded_file = st.file_uploader("Upload an Exel File", type=["xlsx"])
+    if uploaded_file is not None:
+        df = pd.read_excel(
+            io = uploaded_file,
+            engine='openpyxl',
+            sheet_name=None,
+            usecols='A:AZ',
+            nrows=1000000
+        )
+
+        sheet_name = st.selectbox("Select Sheet", list(df.keys()))
+        df = df[sheet_name]
+
+        date_coat = st.sidebar.multiselect(
+            "Select the Coated Date:",
+            options=df["Date_Coat"].unique(),
+            default=df["Date_Coat"].unique(),
+        )
+
+        df_selection = df.query(
+            "Date_Coat == @date_coat"
+        )
+        df_selection["Date_Coat"] = df_selection["Date_Coat"].dt.date
+
+        # Line Chart with Plotly
+        st.subheader("Line Chart of each Parameter📈")
+        # Sepate Graph
+        grouped_df = df_selection.groupby("Date_Coat")
+        fig_time_sec = go.Figure()
+        for date_coat, group in grouped_df:
+            x_values = (group.index - group.index[0]).values
+            fig_time_sec.add_trace(go.Scatter(x=x_values, y=group["Time_sec"],
+                                             mode="lines",
+                                             name=f"Date_Coat: {date_coat}",
+                                             text=group["Layer_No"].astype(str),
+                                             textposition="top center",
+                                             hoverinfo="y+text"))
+
+        fig_time_sec.update_layout(title="Time_sec Plot",
+                                   xaxis_title="Nested X-Axis",
+                                   yaxis_title="Time_sec",
+                                   width=700, height=500,
+                                   showlegend=True)
+
+        fig_pressure = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_pressure.add_trace(go.Scatter(x=x_values, y=group["Press"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_pressure.update_layout(title="Pressure Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="Pressure",
+                          width=700, height=500,
+                          showlegend=True)
+
+        left_column, right_column = st.columns(2)
+        left_column.plotly_chart(fig_time_sec, use_container_width=True)
+        right_column.plotly_chart(fig_pressure, use_container_width=True)
+
+        fig_tg1_elec_pow = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_tg1_elec_pow.add_trace(go.Scatter(x=x_values, y=group["TG1 electric power"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_tg1_elec_pow.update_layout(title="TG1 electric power Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="TG1 electric power",
+                          width=1000, height=500,
+                          showlegend=True)
+
+        fig_tg1_cur = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_tg1_cur.add_trace(go.Scatter(x=x_values, y=group["TG1 current"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_tg1_cur.update_layout(title="TG1 current Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="TG1 current",
+                          width=1000, height=500,
+                          showlegend=True)
+
+        left_column, right_column = st.columns(2)
+        left_column.plotly_chart(fig_tg1_elec_pow, use_container_width=True)
+        right_column.plotly_chart(fig_tg1_cur, use_container_width=True)
+
+        fig_tg1_vol = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_tg1_vol.add_trace(go.Scatter(x=x_values, y=group["TG1 voltage"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_tg1_vol.update_layout(title="TG1 voltage Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="TG1 voltage",
+                          width=1000, height=500,
+                          showlegend=True)
+
+        fig_tg2_elec_pow = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_tg2_elec_pow.add_trace(go.Scatter(x=x_values, y=group["TG2 electric power"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_tg2_elec_pow.update_layout(title="TG2 electric power Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="TG2 electric power",
+                          width=1000, height=500,
+                          showlegend=True)
+
+        left_column, right_column = st.columns(2)
+        left_column.plotly_chart(fig_tg1_vol, use_container_width=True)
+        right_column.plotly_chart(fig_tg2_elec_pow, use_container_width=True)
+
+        fig_tg2_curr = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_tg2_curr.add_trace(go.Scatter(x=x_values, y=group["TG2 current"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_tg2_curr.update_layout(title="TG2 current Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="TG2 current",
+                          width=1000, height=500,
+                          showlegend=True)
+
+        fig_tg2_vol = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_tg2_vol.add_trace(go.Scatter(x=x_values, y=group["TG2 voltage"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_tg2_vol.update_layout(title="TG2 voltage Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="TG2 voltage",
+                          width=1000, height=500,
+                          showlegend=True)
+
+        left_column, right_column = st.columns(2)
+        left_column.plotly_chart(fig_tg2_curr, use_container_width=True)
+        right_column.plotly_chart(fig_tg2_vol, use_container_width=True)
+
+        fig_rs_inci_elec_pow = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_rs_inci_elec_pow.add_trace(go.Scatter(x=x_values, y=group["RS Incidence electric power"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_rs_inci_elec_pow.update_layout(title="RS Incidence electric power Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="RS Incidence electric power",
+                          width=1000, height=500,
+                          showlegend=True)
+
+        fig_rs_reflec_elec_pow = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_rs_reflec_elec_pow.add_trace(go.Scatter(x=x_values, y=group["RS Reflection electric power"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_rs_reflec_elec_pow.update_layout(title="RS Reflection electric power Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="RS Reflection electric power",
+                          width=1000, height=500,
+                          showlegend=True)
+
+        left_column, right_column = st.columns(2)
+        left_column.plotly_chart(fig_rs_inci_elec_pow, use_container_width=True)
+        right_column.plotly_chart(fig_rs_reflec_elec_pow, use_container_width=True)
+
+        fig_tg1_ar_flow = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_tg1_ar_flow.add_trace(go.Scatter(x=x_values, y=group["TG1 Ar flow"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_tg1_ar_flow.update_layout(title="TG1 Ar flow Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="TG1 Ar flow",
+                          width=700, height=500,
+                          showlegend=True)
+        
+        fig_tg1_o2_flow = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_tg1_o2_flow.add_trace(go.Scatter(x=x_values, y=group["TG1 O2 flow"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_tg1_o2_flow.update_layout(title="TG1 O2 flow",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="TG1 O2 flow",
+                          width=1000, height=500,
+                          showlegend=True)
+
+        left_column, right_column = st.columns(2)
+        left_column.plotly_chart(fig_tg1_ar_flow, use_container_width=True)
+        right_column.plotly_chart(fig_tg1_o2_flow, use_container_width=True)
+
+        fig_tg1_aux1_flow = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_tg1_aux1_flow.add_trace(go.Scatter(x=x_values, y=group["TG1 Aux1 flow"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_tg1_aux1_flow.update_layout(title="TG1 Aux1 flow Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="TG1 Aux1 flow",
+                          width=700, height=500,
+                          showlegend=True)
+        
+        fig_tg1_aux2_flow = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_tg1_aux2_flow.add_trace(go.Scatter(x=x_values, y=group["TG1 Aux2 flow"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_tg1_aux2_flow.update_layout(title="TG1 Aux2 flow",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="TG1 Aux2 flow",
+                          width=1000, height=500,
+                          showlegend=True)
+
+        left_column, right_column = st.columns(2)
+        left_column.plotly_chart(fig_tg1_aux1_flow, use_container_width=True)
+        right_column.plotly_chart(fig_tg1_aux2_flow, use_container_width=True)
+
+        fig_tg2_ar_flow = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_tg2_ar_flow.add_trace(go.Scatter(x=x_values, y=group["TG2 Ar flow"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_tg2_ar_flow.update_layout(title="TG2 Ar flow Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="TG2 Ar flow",
+                          width=700, height=500,
+                          showlegend=True)
+        
+        fig_tg2_o2_flow = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_tg2_o2_flow.add_trace(go.Scatter(x=x_values, y=group["TG2 O2 flow"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_tg2_o2_flow.update_layout(title="TG2 O2 flow Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="TG2 O2 flow",
+                          width=1000, height=500,
+                          showlegend=True)
+
+        left_column, right_column = st.columns(2)
+        left_column.plotly_chart(fig_tg2_ar_flow, use_container_width=True)
+        right_column.plotly_chart(fig_tg2_o2_flow, use_container_width=True)
+
+        fig_tg2_aux1_flow = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_tg2_aux1_flow.add_trace(go.Scatter(x=x_values, y=group["TG2 Aux1 flow"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_tg2_aux1_flow.update_layout(title="TG2 Aux1 flow Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="TG2 Aux1 flow",
+                          width=700, height=500,
+                          showlegend=True)
+        
+        fig_tg2_aux2_flow = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_tg2_aux2_flow.add_trace(go.Scatter(x=x_values, y=group["TG2 Aux2 flow"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_tg2_aux2_flow.update_layout(title="TG2 Aux2 flow Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="TG2 Aux2 flow",
+                          width=1000, height=500,
+                          showlegend=True)
+
+        left_column, right_column = st.columns(2)
+        left_column.plotly_chart(fig_tg2_aux1_flow, use_container_width=True)
+        right_column.plotly_chart(fig_tg2_aux2_flow, use_container_width=True)
+
+        fig_rs_o2_flow = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_rs_o2_flow.add_trace(go.Scatter(x=x_values, y=group["RS O2 flow"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_rs_o2_flow.update_layout(title="RS O2 flow Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="RS O2 flow",
+                          width=700, height=500,
+                          showlegend=True)
+        
+        fig_rs_ar_flow = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_rs_ar_flow.add_trace(go.Scatter(x=x_values, y=group["RS Ar flow"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_rs_ar_flow.update_layout(title="RS AR flow Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="RS AR flow",
+                          width=1000, height=500,
+                          showlegend=True)
+
+        left_column, right_column = st.columns(2)
+        left_column.plotly_chart(fig_rs_o2_flow, use_container_width=True)
+        right_column.plotly_chart(fig_rs_ar_flow, use_container_width=True)
+
+        fig_rs_aux_flow = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_rs_aux_flow.add_trace(go.Scatter(x=x_values, y=group["RS Aux flow flow"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_rs_aux_flow.update_layout(title="RS Aux flow flow Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="RS Aux flow flow",
+                          width=700, height=500,
+                          showlegend=True)
+        
+        fig_tg_o2_flow = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_tg_o2_flow.add_trace(go.Scatter(x=x_values, y=group["TG O2 flow"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}",
+                                     text=group["Layer_No"].astype(str),
+                                     textposition="top center",
+                                     hoverinfo="y+text"))
+        fig_tg_o2_flow.update_layout(title="TG O2 flow Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="TG O2 flow",
+                          width=1000, height=500,
+                          showlegend=True)
+
+        left_column, right_column = st.columns(2)
+        left_column.plotly_chart(fig_rs_aux_flow, use_container_width=True)
+        right_column.plotly_chart(fig_tg_o2_flow, use_container_width=True)
+
+        st.warning("Analysis for other machines is not implemented yet.")
+
+else:
+    st.warning("Analysis for the selected machine is not implemented yet.")
