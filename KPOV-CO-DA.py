@@ -400,6 +400,212 @@ else:
 
                                         # Optorun CT26
 
+if selected_machine in ["Optorun CT26"]:
+    uploaded_file = st.file_uploader("Upload an Exel File", type=["xlsx"])
+    if uploaded_file is not None:
+        df = pd.read_excel(
+            io = uploaded_file,
+            engine='openpyxl',
+            sheet_name=None,
+            # skiprows=0,
+            usecols='A:AZ',
+            nrows=1000000
+        )
+
+        sheet_name = st.selectbox("Select Sheet", list(df.keys()))
+        df = df[sheet_name]
+
+        date_coat = st.sidebar.multiselect(
+            "Select the Coated Date:",
+            options=df["Date_Coat"].unique(),
+            default=df["Date_Coat"].unique(),
+        )
+
+        df_selection = df.query(
+            "Date_Coat == @date_coat"# & Time == @coated_time"
+        )
+        df_selection["Date_Coat"] = df_selection["Date_Coat"].dt.date
+
+        # Line Chart with Plotly
+        st.subheader("Line Chart of each Parameter📈")
+        grouped_df = df_selection.groupby("Date_Coat")
+        Press_Pen_Ion_line_plotly = go.Figure()
+        for date_coat, group in grouped_df:
+            x_values = (group.index - group.index[0]).values
+            Press_Pen_Ion_line_plotly.add_trace(go.Scatter(x=x_values, y=group["Pressure_Pen"],
+                                                       mode="lines",
+                                                       name=f"Pressure_Pen - Date_Coat: {date_coat}",
+                                                       hoverinfo="y+text",
+                                                       text=group["Layer_No"].astype(str),
+                                                       textposition="top center"))
+            Press_Pen_Ion_line_plotly.add_trace(go.Scatter(x=x_values, y=group["Pressure_Ion"],
+                                                       mode="lines",
+                                                       name=f"Pressure_Ion - Date_Coat: {date_coat}",
+                                                       hoverinfo="y+text",
+                                                       text=group["Layer_No"].astype(str),
+                                                       textposition="top center",
+                                                       yaxis="y2"))
+        Press_Pen_Ion_line_plotly.update_layout(title="Pressure_Pen and Pressure_Ion",
+                                            yaxis_title="Pressure_Pen",
+                                            yaxis2=dict(title="Pressure_Ion", overlaying="y", side="right"),
+                                            width=1000, height=600,
+                                            showlegend=True)
+        st.plotly_chart(Press_Pen_Ion_line_plotly)
+
+        # Line Plot of Mnt_Temp and Dome_Temp
+        grouped_df = df_selection.groupby("Date_Coat")
+        Mnt_Dome_Temp_line_plotly = go.Figure()
+        for date_coat, group in grouped_df:
+            x_values = (group.index - group.index[0]).values
+            Mnt_Dome_Temp_line_plotly.add_trace(go.Scatter(x=x_values, y=group["Mnt_Temp"],
+                                                       mode="lines",
+                                                       name=f"Mnt_Temp - Date_Coat: {date_coat}",
+                                                       hoverinfo="y+text",
+                                                       text=group["Layer_No"].astype(str),
+                                                       textposition="top center"))
+            Mnt_Dome_Temp_line_plotly.add_trace(go.Scatter(x=x_values, y=group["Dome_Temp"],
+                                                       mode="lines",
+                                                       name=f"Dome_Temp - Date_Coat: {date_coat}",
+                                                       hoverinfo="y+text",
+                                                       text=group["Layer_No"].astype(str),
+                                                       textposition="top center",
+                                                       yaxis="y2"))
+        Mnt_Dome_Temp_line_plotly.update_layout(title="Mnt_Temp and Dome_Temp",
+                                            yaxis_title="Mnt_Temp",
+                                            yaxis2=dict(title="Dome_Temp", overlaying="y", side="right"),
+                                            width=1000, height=600,
+                                            showlegend=True)
+        st.plotly_chart(Mnt_Dome_Temp_line_plotly)
+
+        # Line Plot of Halo_Temp and APC_Flow
+        grouped_df = df_selection.groupby("Date_Coat")
+        Halo_temp_APC_line_plotly = go.Figure()
+        for date_coat, group in grouped_df:
+            x_values = (group.index - group.index[0]).values
+            Halo_temp_APC_line_plotly.add_trace(go.Scatter(x=x_values, y=group["Halo_Temp"],
+                                                       mode="lines",
+                                                       name=f"Halo_Temp - Date_Coat: {date_coat}",
+                                                       hoverinfo="y+text",
+                                                       text=group["Layer_No"].astype(str),
+                                                       textposition="top center"))
+            Halo_temp_APC_line_plotly.add_trace(go.Scatter(x=x_values, y=group["APC_Flow"],
+                                                       mode="lines",
+                                                       name=f"APC_Flow - Date_Coat: {date_coat}",
+                                                       hoverinfo="y+text",
+                                                       text=group["Layer_No"].astype(str),
+                                                       textposition="top center",
+                                                       yaxis="y2"))
+        Halo_temp_APC_line_plotly.update_layout(title="Halo_Temp and APC_Flow",
+                                            yaxis_title="Halo_Temp",
+                                            yaxis2=dict(title="APC_Flow", overlaying="y", side="right"),
+                                            width=1000, height=600,
+                                            showlegend=True)
+        st.plotly_chart(Halo_temp_APC_line_plotly)
+
+        # Line Plot of EB and Rate
+        grouped_df = df_selection.groupby("Date_Coat")
+        EB_Rate_line_plotly = go.Figure()
+        for date_coat, group in grouped_df:
+            x_values = (group.index - group.index[0]).values
+            EB_Rate_line_plotly.add_trace(go.Scatter(x=x_values, y=group["EB_Emission_mA"],
+                                                       mode="lines",
+                                                       name=f"EB_Emission_mA - Date_Coat: {date_coat}",
+                                                       hoverinfo="y+text",
+                                                       text=group["Layer_No"].astype(str),
+                                                       textposition="top center"))
+            EB_Rate_line_plotly.add_trace(go.Scatter(x=x_values, y=group["Rate_A_sec"],
+                                                       mode="lines",
+                                                       name=f"Rate_A_sec - Date_Coat: {date_coat}",
+                                                       hoverinfo="y+text",
+                                                       text=group["Layer_No"].astype(str),
+                                                       textposition="top center",
+                                                       yaxis="y2"))
+        EB_Rate_line_plotly.update_layout(title="EB_Emission_mA and Rate_A_sec",
+                                            yaxis_title="EB_Emission_mA",
+                                            yaxis2=dict(title="Rate_A_sec", overlaying="y", side="right"),
+                                            width=1000, height=600,
+                                            showlegend=True)
+        st.plotly_chart(EB_Rate_line_plotly)
+
+        fig_Light_Value_R = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_Light_Value_R.add_trace(go.Scatter(x=x_values, y=group["Light_Value_R"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}"))
+        fig_Light_Value_R.update_layout(title="Light_Value_R Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="Light_Value_R",
+                          width=700, height=500,
+                          showlegend=True)
+        st.plotly_chart(fig_Light_Value_R)
+
+        TN_KA = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            TN_KA.add_trace(go.Scatter(x=x_values, y=group["TN_KA"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}"))
+        TN_KA.update_layout(title="TN_KA Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="TN_KA",
+                          width=1000, height=500,
+                          showlegend=True)
+
+        fig_Freq = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_Freq.add_trace(go.Scatter(x=x_values, y=group["Freq"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}"))
+        fig_Freq.update_layout(title="Freq Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="Freq",
+                          width=1000, height=500,
+                          showlegend=True)
+
+        left_column, right_column = st.columns(2)
+        left_column.plotly_chart(TN_KA, use_container_width=True)
+        right_column.plotly_chart(fig_Freq, use_container_width=True)
+
+        fig_CH4 = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_CH4.add_trace(go.Scatter(x=x_values, y=group["CH4"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}"))
+        fig_CH4.update_layout(title="CH4 Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="CH4",
+                          width=1000, height=500,
+                          showlegend=True)
+
+        fig_CH6 = go.Figure()
+        for date_coat, group in grouped_df:
+            group.index = group.index - group.index[0]
+            x_values = group.index
+            fig_CH6.add_trace(go.Scatter(x=x_values, y=group["CH6"],
+                                     mode="lines",
+                                     name=f"Date_Coat: {date_coat}"))
+        fig_CH6.update_layout(title="CH6 Plot",
+                          xaxis_title="Nested X-Axis",
+                          yaxis_title="CH6",
+                          width=1000, height=500,
+                          showlegend=True)
+
+        left_column, right_column = st.columns(2)
+        left_column.plotly_chart(fig_CH4, use_container_width=True)
+        right_column.plotly_chart(fig_CH6, use_container_width=True)
+
+        st.warning("Analysis for other machines is not implemented yet.")
+
+else:
+    st.warning("Analysis for the selected machine is not implemented yet.")
+
                                         # Inline
 if selected_machine in ["Inline"]:
     uploaded_file = st.file_uploader("Upload an Exel File", type=["xlsx"])
