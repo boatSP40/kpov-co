@@ -1,4 +1,4 @@
---upgrade pip
+python -m pip install --upgrade pip==24.2
 streamlit==1.39.0
 plotly==5.18.0
 pandas==2.2.0
