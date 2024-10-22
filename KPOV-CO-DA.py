@@ -1191,7 +1191,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_rs_o2_flow.update_layout(title="RS O2 flow Plot",
+        fig_rs_o2_flow.update_layout(title="RS O2 flow Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="RS O2 flow",
                           width=700, height=500,
@@ -1207,7 +1207,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_rs_ar_flow.update_layout(title="RS AR flow Plot",
+        fig_rs_ar_flow.update_layout(title="RS AR flow Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="RS AR flow",
                           width=1000, height=500,
@@ -1227,7 +1227,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_rs_aux_flow.update_layout(title="RS Aux flow flow Plot",
+        fig_rs_aux_flow.update_layout(title="RS Aux flow flow Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="RS Aux flow flow",
                           width=700, height=500,
@@ -1243,7 +1243,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_tg_o2_flow.update_layout(title="TG O2 flow Plot",
+        fig_tg_o2_flow.update_layout(title="TG O2 flow Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="TG O2 flow",
                           width=1000, height=500,
