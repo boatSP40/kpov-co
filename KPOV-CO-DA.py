@@ -128,7 +128,7 @@ if selected_machine in ["Shrincon Old Version", "Shrincon New Version"]:
                                              textposition="top center",
                                              hoverinfo="y+text"))
 
-        fig_time_sec.update_layout(title="Time_sec Plot",
+        fig_time_sec.update_layout(title="Time_sec Plot)",
                                    xaxis_title="Nested X-Axis",
                                    yaxis_title="Time_sec",
                                    width=700, height=500,
@@ -141,7 +141,7 @@ if selected_machine in ["Shrincon Old Version", "Shrincon New Version"]:
             fig_AccVol.add_trace(go.Scatter(x=x_values, y=group["AccVol"],
                                      mode="lines",
                                      name=f"Date_Coat: {date_coat}"))
-        fig_AccVol.update_layout(title="AccVol Plot",
+        fig_AccVol.update_layout(title="AccVol Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="AccVol",
                           width=700, height=500,
@@ -158,7 +158,7 @@ if selected_machine in ["Shrincon Old Version", "Shrincon New Version"]:
             fig_AccCur.add_trace(go.Scatter(x=x_values, y=group["AccCur"],
                                      mode="lines",
                                      name=f"Date_Coat: {date_coat}"))
-        fig_AccCur.update_layout(title="AccCur Plot",
+        fig_AccCur.update_layout(title="AccCur Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="AccCur",
                           width=1000, height=500,
@@ -171,7 +171,7 @@ if selected_machine in ["Shrincon Old Version", "Shrincon New Version"]:
             fig_SupVol.add_trace(go.Scatter(x=x_values, y=group["SupVol"],
                                      mode="lines",
                                      name=f"Date_Coat: {date_coat}"))
-        fig_SupVol.update_layout(title="SupVol Plot",
+        fig_SupVol.update_layout(title="SupVol Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="SupVol",
                           width=1000, height=500,
@@ -188,7 +188,7 @@ if selected_machine in ["Shrincon Old Version", "Shrincon New Version"]:
             fig_BiasCur.add_trace(go.Scatter(x=x_values, y=group["BiasCur"],
                                      mode="lines",
                                      name=f"Date_Coat: {date_coat}"))
-        fig_BiasCur.update_layout(title="BiasCur Plot",
+        fig_BiasCur.update_layout(title="BiasCur Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="BiasCur",
                           width=1000, height=500,
@@ -201,7 +201,7 @@ if selected_machine in ["Shrincon Old Version", "Shrincon New Version"]:
             fig_RF_Forword.add_trace(go.Scatter(x=x_values, y=group["RF_Forword"],
                                      mode="lines",
                                      name=f"Date_Coat: {date_coat}"))
-        fig_RF_Forword.update_layout(title="RF_Forword Plot",
+        fig_RF_Forword.update_layout(title="RF_Forword Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="RF_Forword",
                           width=1000, height=500,
@@ -218,7 +218,7 @@ if selected_machine in ["Shrincon Old Version", "Shrincon New Version"]:
             fig_RF_Refrect.add_trace(go.Scatter(x=x_values, y=group["RF_Refrect"],
                                      mode="lines",
                                      name=f"Date_Coat: {date_coat}"))
-        fig_RF_Refrect.update_layout(title="RF_Refrect Plot",
+        fig_RF_Refrect.update_layout(title="RF_Refrect Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="RF_Refrect",
                           width=1000, height=500,
@@ -231,7 +231,7 @@ if selected_machine in ["Shrincon Old Version", "Shrincon New Version"]:
             fig_O2Flow.add_trace(go.Scatter(x=x_values, y=group["O2Flow"],
                                      mode="lines",
                                      name=f"Date_Coat: {date_coat}"))
-        fig_O2Flow.update_layout(title="O2Flow Plot",
+        fig_O2Flow.update_layout(title="O2Flow Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="O2Flow",
                           width=1000, height=500,
@@ -248,7 +248,7 @@ if selected_machine in ["Shrincon Old Version", "Shrincon New Version"]:
             fig_ArFlow.add_trace(go.Scatter(x=x_values, y=group["ArFlow"],
                                      mode="lines",
                                      name=f"Date_Coat: {date_coat}"))
-        fig_ArFlow.update_layout(title="ArFlow Plot",
+        fig_ArFlow.update_layout(title="ArFlow Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="ArFlow",
                           width=1000, height=500,
@@ -261,7 +261,7 @@ if selected_machine in ["Shrincon Old Version", "Shrincon New Version"]:
             fig_NtFlow.add_trace(go.Scatter(x=x_values, y=group["NtFlow"],
                                      mode="lines",
                                      name=f"Date_Coat: {date_coat}"))
-        fig_NtFlow.update_layout(title="NtFlow Plot",
+        fig_NtFlow.update_layout(title="NtFlow Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="NtFlow",
                           width=1000, height=500,
@@ -278,7 +278,7 @@ if selected_machine in ["Shrincon Old Version", "Shrincon New Version"]:
             fig_APC_Pressure.add_trace(go.Scatter(x=x_values, y=group["APC_Pressure"],
                                      mode="lines",
                                      name=f"Date_Coat: {date_coat}"))
-        fig_APC_Pressure.update_layout(title="APC_Pressure Plot",
+        fig_APC_Pressure.update_layout(title="APC_Pressure Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="APC_Pressure",
                           width=700, height=500,
@@ -534,7 +534,7 @@ if selected_machine in ["Optorun CT26"]:
             fig_Light_Value_R.add_trace(go.Scatter(x=x_values, y=group["Light_Value_R"],
                                      mode="lines",
                                      name=f"Date_Coat: {date_coat}"))
-        fig_Light_Value_R.update_layout(title="Light_Value_R Plot",
+        fig_Light_Value_R.update_layout(title="Light_Value_R Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="Light_Value_R",
                           width=700, height=500,
@@ -548,7 +548,7 @@ if selected_machine in ["Optorun CT26"]:
             TN_KA.add_trace(go.Scatter(x=x_values, y=group["TN_KA"],
                                      mode="lines",
                                      name=f"Date_Coat: {date_coat}"))
-        TN_KA.update_layout(title="TN_KA Plot",
+        TN_KA.update_layout(title="TN_KA Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="TN_KA",
                           width=1000, height=500,
@@ -561,7 +561,7 @@ if selected_machine in ["Optorun CT26"]:
             fig_Freq.add_trace(go.Scatter(x=x_values, y=group["Freq"],
                                      mode="lines",
                                      name=f"Date_Coat: {date_coat}"))
-        fig_Freq.update_layout(title="Freq Plot",
+        fig_Freq.update_layout(title="Freq Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="Freq",
                           width=1000, height=500,
@@ -578,7 +578,7 @@ if selected_machine in ["Optorun CT26"]:
             fig_CH4.add_trace(go.Scatter(x=x_values, y=group["CH4"],
                                      mode="lines",
                                      name=f"Date_Coat: {date_coat}"))
-        fig_CH4.update_layout(title="CH4 Plot",
+        fig_CH4.update_layout(title="CH4 Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="CH4",
                           width=1000, height=500,
@@ -591,7 +591,7 @@ if selected_machine in ["Optorun CT26"]:
             fig_CH6.add_trace(go.Scatter(x=x_values, y=group["CH6"],
                                      mode="lines",
                                      name=f"Date_Coat: {date_coat}"))
-        fig_CH6.update_layout(title="CH6 Plot",
+        fig_CH6.update_layout(title="CH6 Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="CH6",
                           width=1000, height=500,
@@ -867,7 +867,7 @@ if selected_machine in ["AFC: CT17"]:
                                              textposition="top center",
                                              hoverinfo="y+text"))
 
-        fig_time_sec.update_layout(title="Time_sec Plot",
+        fig_time_sec.update_layout(title="Time_sec Plot"),
                                    xaxis_title="Nested X-Axis",
                                    yaxis_title="Time_sec",
                                    width=700, height=500,
@@ -903,7 +903,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_tg1_elec_pow.update_layout(title="TG1 electric power Plot",
+        fig_tg1_elec_pow.update_layout(title="TG1 electric power Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="TG1 electric power",
                           width=1000, height=500,
@@ -919,7 +919,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_tg1_cur.update_layout(title="TG1 current Plot",
+        fig_tg1_cur.update_layout(title="TG1 current Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="TG1 current",
                           width=1000, height=500,
@@ -939,7 +939,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_tg1_vol.update_layout(title="TG1 voltage Plot",
+        fig_tg1_vol.update_layout(title="TG1 voltage Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="TG1 voltage",
                           width=1000, height=500,
@@ -955,7 +955,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_tg2_elec_pow.update_layout(title="TG2 electric power Plot",
+        fig_tg2_elec_pow.update_layout(title="TG2 electric power Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="TG2 electric power",
                           width=1000, height=500,
@@ -975,7 +975,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_tg2_curr.update_layout(title="TG2 current Plot",
+        fig_tg2_curr.update_layout(title="TG2 current Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="TG2 current",
                           width=1000, height=500,
@@ -991,7 +991,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_tg2_vol.update_layout(title="TG2 voltage Plot",
+        fig_tg2_vol.update_layout(title="TG2 voltage Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="TG2 voltage",
                           width=1000, height=500,
@@ -1011,7 +1011,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_rs_inci_elec_pow.update_layout(title="RS Incidence electric power Plot",
+        fig_rs_inci_elec_pow.update_layout(title="RS Incidence electric power Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="RS Incidence electric power",
                           width=1000, height=500,
@@ -1027,7 +1027,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_rs_reflec_elec_pow.update_layout(title="RS Reflection electric power Plot",
+        fig_rs_reflec_elec_pow.update_layout(title="RS Reflection electric power Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="RS Reflection electric power",
                           width=1000, height=500,
@@ -1047,7 +1047,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_tg1_ar_flow.update_layout(title="TG1 Ar flow Plot",
+        fig_tg1_ar_flow.update_layout(title="TG1 Ar flow Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="TG1 Ar flow",
                           width=700, height=500,
@@ -1063,7 +1063,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_tg1_o2_flow.update_layout(title="TG1 O2 flow",
+        fig_tg1_o2_flow.update_layout(title="TG1 O2 flow"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="TG1 O2 flow",
                           width=1000, height=500,
@@ -1083,7 +1083,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_tg1_aux1_flow.update_layout(title="TG1 Aux1 flow Plot",
+        fig_tg1_aux1_flow.update_layout(title="TG1 Aux1 flow Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="TG1 Aux1 flow",
                           width=700, height=500,
@@ -1099,7 +1099,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_tg1_aux2_flow.update_layout(title="TG1 Aux2 flow",
+        fig_tg1_aux2_flow.update_layout(title="TG1 Aux2 flow"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="TG1 Aux2 flow",
                           width=1000, height=500,
@@ -1119,7 +1119,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_tg2_ar_flow.update_layout(title="TG2 Ar flow Plot",
+        fig_tg2_ar_flow.update_layout(title="TG2 Ar flow Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="TG2 Ar flow",
                           width=700, height=500,
@@ -1135,7 +1135,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_tg2_o2_flow.update_layout(title="TG2 O2 flow Plot",
+        fig_tg2_o2_flow.update_layout(title="TG2 O2 flow Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="TG2 O2 flow",
                           width=1000, height=500,
@@ -1155,7 +1155,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_tg2_aux1_flow.update_layout(title="TG2 Aux1 flow Plot",
+        fig_tg2_aux1_flow.update_layout(title="TG2 Aux1 flow Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="TG2 Aux1 flow",
                           width=700, height=500,
@@ -1171,7 +1171,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_tg2_aux2_flow.update_layout(title="TG2 Aux2 flow Plot",
+        fig_tg2_aux2_flow.update_layout(title="TG2 Aux2 flow Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="TG2 Aux2 flow",
                           width=1000, height=500,
@@ -1368,7 +1368,7 @@ if selected_machine == "Waterproof Coating (CT28)":
         #       fig_Pressure.add_trace(go.Scatter(x=x_values, y=group["Pressure (Pa)"],
         #                                mode="lines",
         #                                name=f"Date_Coat: {date_coat}"))
-        #   fig_Pressure.update_layout(title="Pressure Plot",
+        #   fig_Pressure.update_layout(title="Pressure Plot"),
         #                     xaxis_title="Nested X-Axis",
         #                     yaxis_title="Pressure (Pa)",
         #                     width=700, height=500,
