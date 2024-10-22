@@ -11,7 +11,7 @@ st.set_page_config(page_title="Automate Data Analysis for Coating Machine",
 )
 
 machine_options = ["Shrincon Old Version", "Shrincon New Version", "Optorun CT25",
-                   "Optorun CT26", "Inline", "Inline (Single Coat)", "Showa", "AFC: CT17"]
+                   "Optorun CT26", "Inline", "Inline (Single Coat)", "Showa", "AFC: CT17", "Waterproof Coating (CT28)"]
 selected_machine = st.selectbox("Select Machine", machine_options)
 
                                         # Shrincon
