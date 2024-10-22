@@ -1280,33 +1280,33 @@ if selected_machine == "Waterproof Coating (CT28)":
         # Filter the dataframe based on selected dates
         df_selection = df[df["CO_Date"].dt.date.isin(date_coat)]
 
-        # Plot 1: Line Chart for Pressure and MFC O2
-        st.subheader("Line Chart of Pressure and MFC O2📈")
+        # Plot 1: Line Chart for MFC O2 and MFC Ar
+        st.subheader("Line Chart of MFC O2 and MFC AR📈")
         grouped_df = df_selection.groupby("CO_Date")
-        pressure_mfc_plotly = go.Figure()
+        mfco2_mfcar_plotly = go.Figure()
 
         for co_date, group in grouped_df:
             x_values = (group.index - group.index[0]).values
-            pressure_mfc_plotly.add_trace(go.Scatter(x=x_values, y=group["Pressure (Pa)"],
+            mfco2_mfcar_plotly.add_trace(go.Scatter(x=x_values, y=group["MFC O2"],
                                                      mode="lines",
-                                                     name=f"Pressure (Pa) - Date: {co_date}",
+                                                     name=f"MFC O2 - Date: {co_date}",
                                                      hoverinfo="y+text",
                                                      text=group["File_Name"],
                                                      textposition="top center"))
-            pressure_mfc_plotly.add_trace(go.Scatter(x=x_values, y=group["MFC O2"],
+            mfco2_mfcar_plotly.add_trace(go.Scatter(x=x_values, y=group["MFC Ar"],
                                                      mode="lines",
-                                                     name=f"MFC O2 - Date: {co_date}",
+                                                     name=f"MFC Ar - Date: {co_date}",
                                                      hoverinfo="y+text",
                                                      text=group["File_Name"],
                                                      textposition="top center",
                                                      yaxis="y2"))
 
-        pressure_mfc_plotly.update_layout(title="Pressure and MFC O2",
-                                          yaxis_title="Pressure (Pa)",
-                                          yaxis2=dict(title="MFC O2", overlaying="y", side="right"),
+        mfco2_mfcar_plotly.update_layout(title="MFC O2 and MFC Ar",
+                                          yaxis_title="MFC O2",
+                                          yaxis2=dict(title="MFC Ar", overlaying="y", side="right"),
                                           width=1000, height=600,
                                           showlegend=True)
-        st.plotly_chart(pressure_mfc_plotly)
+        st.plotly_chart(mfco2_mfcar_plotly)
 
         # Plot 2: Line Plot of Filament V and Filament A
         st.subheader("Line Chart of Filament V and Filament A📈")
@@ -1361,6 +1361,21 @@ if selected_machine == "Waterproof Coating (CT28)":
                                    width=1000, height=600,
                                    showlegend=True)
         st.plotly_chart(anode_plotly)
+      
+        for date_coat, group in grouped_df:
+              group.index = group.index - group.index[0]
+              x_values = group.index
+              fig_Pressure.add_trace(go.Scatter(x=x_values, y=group["Pressure (Pa)"],
+                                       mode="lines",
+                                       name=f"Date_Coat: {date_coat}"))
+          fig_Pressure.update_layout(title="Pressure Plot",
+                            xaxis_title="Nested X-Axis",
+                            yaxis_title="Pressure (Pa)",
+                            width=700, height=500,
+                            showlegend=True)
+          st.plotly_chart(fig_Pressure)
+  
+          st.warning("Analysis for other machines is not implemented yet.")
 
 else:
     st.warning("Analysis for the selected machine is not implemented yet.")
