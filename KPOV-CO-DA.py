@@ -883,7 +883,7 @@ if selected_machine in ["AFC: CT17"]:
                                      text=group["Layer_No"].astype(str),
                                      textposition="top center",
                                      hoverinfo="y+text"))
-        fig_pressure.update_layout(title="Pressure Plot",
+        fig_pressure.update_layout(title="Pressure Plot"),
                           xaxis_title="Nested X-Axis",
                           yaxis_title="Pressure",
                           width=700, height=500,
