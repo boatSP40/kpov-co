@@ -1362,20 +1362,20 @@ if selected_machine == "Waterproof Coating (CT28)":
                                    showlegend=True)
         st.plotly_chart(anode_plotly)
       
-        for date_coat, group in grouped_df:
-              group.index = group.index - group.index[0]
-              x_values = group.index
-              fig_Pressure.add_trace(go.Scatter(x=x_values, y=group["Pressure (Pa)"],
-                                       mode="lines",
-                                       name=f"Date_Coat: {date_coat}"))
-          fig_Pressure.update_layout(title="Pressure Plot",
-                            xaxis_title="Nested X-Axis",
-                            yaxis_title="Pressure (Pa)",
-                            width=700, height=500,
-                            showlegend=True)
-          st.plotly_chart(fig_Pressure)
+        # for date_coat, group in grouped_df:
+        #       group.index = group.index - group.index[0]
+        #       x_values = group.index
+        #       fig_Pressure.add_trace(go.Scatter(x=x_values, y=group["Pressure (Pa)"],
+        #                                mode="lines",
+        #                                name=f"Date_Coat: {date_coat}"))
+        #   fig_Pressure.update_layout(title="Pressure Plot",
+        #                     xaxis_title="Nested X-Axis",
+        #                     yaxis_title="Pressure (Pa)",
+        #                     width=700, height=500,
+        #                     showlegend=True)
+        #   st.plotly_chart(fig_Pressure)
   
-          st.warning("Analysis for other machines is not implemented yet.")
+        #   st.warning("Analysis for other machines is not implemented yet.")
 
 else:
     st.warning("Analysis for the selected machine is not implemented yet.")
