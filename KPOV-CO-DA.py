@@ -1257,3 +1257,110 @@ if selected_machine in ["AFC: CT17"]:
 
 else:
     st.warning("Analysis for the selected machine is not implemented yet.")
+
+                                        # CT-28
+if selected_machine == "Waterproof Coating (CT28)":
+    # File uploader to allow user to upload combined CSV file
+    uploaded_file = st.file_uploader("Upload a CSV File", type=["csv"])
+    
+    if uploaded_file is not None:
+        # Read uploaded CSV file
+        df = pd.read_csv(uploaded_file)
+
+        # Ensure "Date_Coat" is treated as a date object
+        df["CO_Date"] = pd.to_datetime(df["CO_Date"])
+
+        # Select coated dates from sidebar
+        date_coat = st.sidebar.multiselect(
+            "Select the Coated Date:",
+            options=df["CO_Date"].dt.date.unique(),
+            default=df["CO_Date"].dt.date.unique(),
+        )
+
+        # Filter the dataframe based on selected dates
+        df_selection = df[df["CO_Date"].dt.date.isin(date_coat)]
+
+        # Plot 1: Line Chart for Pressure and MFC O2
+        st.subheader("Line Chart of Pressure and MFC O2📈")
+        grouped_df = df_selection.groupby("CO_Date")
+        pressure_mfc_plotly = go.Figure()
+
+        for co_date, group in grouped_df:
+            x_values = (group.index - group.index[0]).values
+            pressure_mfc_plotly.add_trace(go.Scatter(x=x_values, y=group["Pressure (Pa)"],
+                                                     mode="lines",
+                                                     name=f"Pressure (Pa) - Date: {co_date}",
+                                                     hoverinfo="y+text",
+                                                     text=group["File_Name"],
+                                                     textposition="top center"))
+            pressure_mfc_plotly.add_trace(go.Scatter(x=x_values, y=group["MFC O2"],
+                                                     mode="lines",
+                                                     name=f"MFC O2 - Date: {co_date}",
+                                                     hoverinfo="y+text",
+                                                     text=group["File_Name"],
+                                                     textposition="top center",
+                                                     yaxis="y2"))
+
+        pressure_mfc_plotly.update_layout(title="Pressure and MFC O2",
+                                          yaxis_title="Pressure (Pa)",
+                                          yaxis2=dict(title="MFC O2", overlaying="y", side="right"),
+                                          width=1000, height=600,
+                                          showlegend=True)
+        st.plotly_chart(pressure_mfc_plotly)
+
+        # Plot 2: Line Plot of Filament V and Filament A
+        st.subheader("Line Chart of Filament V and Filament A📈")
+        filament_plotly = go.Figure()
+
+        for co_date, group in grouped_df:
+            x_values = (group.index - group.index[0]).values
+            filament_plotly.add_trace(go.Scatter(x=x_values, y=group["Filament V"],
+                                                 mode="lines",
+                                                 name=f"Filament V - Date: {co_date}",
+                                                 hoverinfo="y+text",
+                                                 text=group["File_Name"],
+                                                 textposition="top center"))
+            filament_plotly.add_trace(go.Scatter(x=x_values, y=group["Filament A"],
+                                                 mode="lines",
+                                                 name=f"Filament A - Date: {co_date}",
+                                                 hoverinfo="y+text",
+                                                 text=group["File_Name"],
+                                                 textposition="top center",
+                                                 yaxis="y2"))
+
+        filament_plotly.update_layout(title="Filament V and Filament A",
+                                      yaxis_title="Filament V",
+                                      yaxis2=dict(title="Filament A", overlaying="y", side="right"),
+                                      width=1000, height=600,
+                                      showlegend=True)
+        st.plotly_chart(filament_plotly)
+
+        # Plot 3: Line Plot of Anode V and Anode A
+        st.subheader("Line Chart of Anode V and Anode A📈")
+        anode_plotly = go.Figure()
+
+        for co_date, group in grouped_df:
+            x_values = (group.index - group.index[0]).values
+            anode_plotly.add_trace(go.Scatter(x=x_values, y=group["Anode V"],
+                                              mode="lines",
+                                              name=f"Anode V - Date: {co_date}",
+                                              hoverinfo="y+text",
+                                              text=group["File_Name"],
+                                              textposition="top center"))
+            anode_plotly.add_trace(go.Scatter(x=x_values, y=group["Anode A"],
+                                              mode="lines",
+                                              name=f"Anode A - Date: {co_date}",
+                                              hoverinfo="y+text",
+                                              text=group["File_Name"],
+                                              textposition="top center",
+                                              yaxis="y2"))
+
+        anode_plotly.update_layout(title="Anode V and Anode A",
+                                   yaxis_title="Anode V",
+                                   yaxis2=dict(title="Anode A", overlaying="y", side="right"),
+                                   width=1000, height=600,
+                                   showlegend=True)
+        st.plotly_chart(anode_plotly)
+
+else:
+    st.warning("Analysis for the selected machine is not implemented yet.")
